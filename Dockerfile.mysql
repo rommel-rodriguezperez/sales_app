@@ -1,0 +1,10 @@
+FROM mysql:8.0
+
+COPY my.cnf /etc/mysql/conf.d/
+
+ENV MYSQL_ROOT_PASSWORD=mysecretpassword
+ENV MYSQL_DATABASE=myapp
+ENV MYSQL_USER=myappuser
+ENV MYSQL_PASSWORD=myapppassword
+
+EXPOSE 3306

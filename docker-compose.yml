@@ -1,0 +1,68 @@
+version: "3.3"
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - login
+    environment:
+      - DB_HOST=db
+      - DB_NAME=maindb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+      - DB_PORT=3306
+      - LOGIN_HOST=login
+      - LOGIN_PORT=8000
+    volumes:
+      - ./build/libs/:/usr/local/tomcat/webapps/
+
+  db:
+    image: mysql:8.0-debian
+    ports:
+      - "3306:3306"
+        #volumes:
+      # - ./mysql-data:/var/lib/mysql
+      # - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    environment:
+      - MYSQL_USER=devuser
+      - MYSQL_PASSWORD=changeme
+      - MYSQL_DATABASE=maindb
+      - MYSQL_ROOT_PASSWORD=thisisnotsafe
+  login:
+    build:
+      context: .
+      dockerfile: Dockerfile.login
+      args:
+        - DEV=true
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./login_micro:/app
+    command: >
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=logindb
+      - DB_NAME=devdb
+      - DB_USER=mainapp
+      - DB_PASS=changeme
+    depends_on:
+      - logindb
+  logindb:
+    image: postgres:15.1-alpine
+    volumes:
+      - login-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=devdb
+      - POSTGRES_USER=mainapp
+      - POSTGRES_PASSWORD=changeme
+
+
+## volumes:
+##   mysql-data:
+volumes:
+  login-db-data:
