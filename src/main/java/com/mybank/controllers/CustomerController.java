@@ -16,6 +16,9 @@ import org.springframework.validation.annotation.Validated;
 @CrossOrigin(origins = "http://localhost:8080")
 public class CustomerController {
 
+	// TODO: Better to use DTOs for all of the controller, in other words
+	// make all the services return DTO instead of raw entities. The current
+	// approach might leak important information without anyone noticing.
     private final CustomerService customerService;
 
     @Autowired
@@ -35,5 +38,4 @@ public class CustomerController {
         return ResponseEntity.ok(customer);
     }
 
-    // Other controller methods
 }

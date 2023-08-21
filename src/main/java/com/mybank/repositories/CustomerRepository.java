@@ -8,5 +8,5 @@ import com.mybank.entities.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
-    // Additional custom queries if needed
+
 }
