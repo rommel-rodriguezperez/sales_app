@@ -34,7 +34,6 @@ public class Customer {
     private String cellPhone;
 
     public Customer() {
-        // Default constructor
     }
 
 	public Long getId() {

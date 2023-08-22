@@ -9,5 +9,4 @@ public class SaleDTO {
     private double amount;
     private FinancialProductDTO product;
 
-    // Constructors, getters, and setters
 }
