@@ -15,11 +15,16 @@ import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "Employees")
 @PrimaryKeyJoinColumn(name = "id")
 public class Employee extends Person {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+    // TODO: Any idea how to retrieve the managed employees and the sales from
+    // the role attribute given that it can be of subclass Manager or Seller?
+    // NOTE: Seller is not implemented yet, it has to replace SalesPerson,
+    // or I can transform SalesPerson into seller.
 
     // Employee-specific attributes
 }

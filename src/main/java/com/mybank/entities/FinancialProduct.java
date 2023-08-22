@@ -25,6 +25,9 @@ public class FinancialProduct {
     @Enumerated(EnumType.STRING)
     private FinancialProductType type;
 
+    // TODO: Modify this approach, the points per amount depend directly on the
+    // product type. Most likely, the FinancialProductType will have to be
+    // a full class instead of a enum, and have its own table.
     @Column(name = "points_per_amount")
     private double pointsPerAmount;
 
