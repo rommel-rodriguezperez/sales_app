@@ -1,7 +1,12 @@
 package com.mybank.entities;
 
+import org.hibernate.annotations.Fetch;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,7 +26,8 @@ public class FinancialProduct {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne()
+    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "kind_id", nullable = false) // NOTE: Careful here
     private FinancialProductKind kind;
 
