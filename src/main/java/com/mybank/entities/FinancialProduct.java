@@ -1,14 +1,13 @@
 package com.mybank.entities;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 
 @Entity
 @Table(name = "FinancialProducts")
@@ -22,14 +21,10 @@ public class FinancialProduct {
     @Column(name = "name")
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    private FinancialProductType type;
+    @ManyToOne()
+    @JoinColumn(name = "kind_id", nullable = false) // NOTE: Careful here
+    private FinancialProductKind kind;
 
-    // TODO: Modify this approach, the points per amount depend directly on the
-    // product type. Most likely, the FinancialProductType will have to be
-    // a full class instead of a enum, and have its own table.
-    @Column(name = "points_per_amount")
-    private double pointsPerAmount;
 
 	public Long getId() {
 		return id;
@@ -47,13 +42,13 @@ public class FinancialProduct {
 		this.name = name;
 	}
 
-	public double getPointsPerAmount() {
-		return pointsPerAmount;
-	}
-
-	public void setPointsPerAmount(double pointsPerAmount) {
-		this.pointsPerAmount = pointsPerAmount;
-	}
+//	public double getPointsPerAmount() {
+//		return pointsPerAmount;
+//	}
+//
+//	public void setPointsPerAmount(double pointsPerAmount) {
+//		this.pointsPerAmount = pointsPerAmount;
+//	}
 
     
 }
