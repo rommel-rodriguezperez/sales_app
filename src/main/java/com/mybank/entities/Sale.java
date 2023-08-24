@@ -11,18 +11,18 @@ public class Sale {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "sales_person_id")
-    private SalesPerson salesPerson;
+    @JoinColumn(name = "seller_id", nullable = false)
+    private Seller seller;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
     private Date date;
     private double amount;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private FinancialProduct product;
 
 	public Long getId() {
@@ -33,14 +33,14 @@ public class Sale {
 		this.id = id;
 	}
 
-	public SalesPerson getSalesPerson() {
-		return salesPerson;
+
+	public Seller getSeller() {
+		return seller;
 	}
 
-	public void setSalesPerson(SalesPerson salesPerson) {
-		this.salesPerson = salesPerson;
+	public void setSeller(Seller seller) {
+		this.seller = seller;
 	}
-
 
 	public Customer getCustomer() {
 		return customer;

@@ -15,12 +15,11 @@ package com.mybank.entities;
 //import jakarta.persistence.ManyToMany;
 //import jakarta.persistence.OneToMany;
 //import jakarta.persistence.Table;
-//
+
 //@Entity
-//@DiscriminatorValue("MANAGER")
-public class Manager extends Role {
-//
-//    @OneToMany(mappedBy = "manager")
-//    private List<Employee> employeesInCharge;
-//    // Manager-specific attributes and methods
+//@DiscriminatorValue("SELLER")
+public class Seller extends Role {
+
+//    @OneToMany(mappedBy = "seller")
+//    private List<Sale> sales;
 }

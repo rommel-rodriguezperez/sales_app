@@ -7,34 +7,34 @@ import com.mybank.dto.SaleRequestDto;
 import com.mybank.entities.Customer;
 import com.mybank.entities.FinancialProduct;
 import com.mybank.entities.Sale;
-import com.mybank.entities.SalesPerson;
+import com.mybank.entities.Seller;
 import com.mybank.repositories.SaleRepository;
 
 @Service
 public class SaleService {
 
     private final SaleRepository saleRepository;
-    private final SalesPersonService salesPersonService;
+    private final SellerService sellerService;
     private final CustomerService customerService;
     private final FinancialProductService financialProductService;
 
     @Autowired
-    public SaleService(SaleRepository saleRepository, SalesPersonService salesPersonService,
+    public SaleService(SaleRepository saleRepository, SellerService salesPersonService,
                        CustomerService customerService, FinancialProductService financialProductService) {
         this.saleRepository = saleRepository;
-        this.salesPersonService = salesPersonService;
+        this.sellerService = salesPersonService;
         this.customerService = customerService;
         this.financialProductService = financialProductService;
     }
 
     public Sale createSale(SaleRequestDto saleRequestDto) {
-        SalesPerson salesPerson = salesPersonService.getSalesPersonById(saleRequestDto.getSalesPersonId());
+        Seller seller = sellerService.getSellerById(saleRequestDto.getSalesPersonId());
         Customer customer = customerService.getCustomerById(saleRequestDto.getCustomerId());
         FinancialProduct financialProduct = financialProductService.getFinancialProductById(saleRequestDto.getFinancialProductId());
 
         Sale sale = new Sale();
         sale.setDate(saleRequestDto.getDate());
-        sale.setSalesPerson(salesPerson);
+        sale.setSeller(seller);
         sale.setCustomer(customer);
         sale.setAmount(saleRequestDto.getAmount());
         sale.setProduct(financialProduct);

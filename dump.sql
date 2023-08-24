@@ -27,7 +27,48 @@ CREATE TABLE FinancialProducts (
     FOREIGN KEY (kind_id) REFERENCES financial_product_kind(id)
 );
 
+CREATE TABLE Persons (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    document_type ENUM('DNI', 'PASSPORT', 'OTHER'),
+    document_number VARCHAR(255),
+    last_name VARCHAR(255),
+    first_name VARCHAR(255),
+    cell_phone_number VARCHAR(255)
+);
 
+
+CREATE TABLE Roles (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255),
+);
+
+CREATE TABLE Employees (
+    id BIGINT PRIMARY KEY,
+    role_id BIGINT,
+    manager_id BIGINT,
+    FOREIGN KEY (id) REFERENCES Persons(id),
+    FOREIGN KEY (role_id) REFERENCES Roles(id),
+    FOREIGN KEY (manager_id) REFERENCES Employees(id) -- Assuming manager is a role
+);
+
+CREATE TABLE Sales (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    seller_id BIGINT,
+    -- Additional columns for sale-specific attributes
+    FOREIGN KEY (seller_id) REFERENCES Roles(id) -- Assuming seller is a role
+);
+
+-- Additional constraints and indexes as needed
+
+
+
+-- CREATE TABLE ManagerEmployee (
+--     manager_id BIGINT,
+--     employee_id BIGINT,
+--     PRIMARY KEY (manager_id, employee_id),
+--     FOREIGN KEY (manager_id) REFERENCES Employee(id),
+--     FOREIGN KEY (employee_id) REFERENCES Employee(id)
+-- );
 
 -- DATA LOADING 
 

@@ -1,19 +1,15 @@
 package com.mybank.entities;
 
 
-import jakarta.persistence.Column;
+import java.util.List;
+import java.util.ArrayList;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
-
-import com.mybank.entities.Role;
 
 @Entity
 @Table(name = "Employees")
@@ -22,10 +18,55 @@ public class Employee extends Person {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
-    // TODO: Any idea how to retrieve the managed employees and the sales from
-    // the role attribute given that it can be of subclass Manager or Seller?
-    // NOTE: Seller is not implemented yet, it has to replace SalesPerson,
-    // or I can transform SalesPerson into seller.
+    
+    @ManyToOne
+    @JoinColumn(name = "manager_id")
+    private Employee manager;
+    
+    @OneToMany(mappedBy = "manager")
+    private List<Employee> managedEmployees = new ArrayList<>(); // Employees managed by this manager
+    
+    
+    @OneToMany(mappedBy = "seller")
+    private List<Sale> sales = new ArrayList<>(); // Employees managed by this manager
 
-    // Employee-specific attributes
+    public int addManagedEmployee(Employee employee) {
+        if (this.role.getName().equals("MANAGER")) { // Check if this employee is a manager
+            managedEmployees.add(employee);
+            employee.setManager(this); // Set the manager for the added employee
+            return 0;
+        } else {
+        	return 1;
+        }
+    }
+
+    public int removeManagedEmployee(Employee employee) {
+        if (this.role.getName().equals("MANAGER") && managedEmployees.contains(employee)) {
+            managedEmployees.remove(employee);
+            employee.setManager(null); // Unset the manager for the removed employee
+            return 0;
+        } else {
+        	return 1;
+        }
+    }
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
+
+	public Employee getManager() {
+		return manager;
+	}
+
+	public void setManager(Employee manager) {
+		this.manager = manager;
+	}
+
+
+
 }
