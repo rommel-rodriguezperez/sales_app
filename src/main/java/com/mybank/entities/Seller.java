@@ -1,25 +1,25 @@
 package com.mybank.entities;
 
-//import java.util.List;
-//
-//import jakarta.persistence.Column;
-//import jakarta.persistence.JoinColumn;
-//import jakarta.persistence.DiscriminatorValue;
-//import jakarta.persistence.Entity;
-//import jakarta.persistence.GeneratedValue;
-//import jakarta.persistence.GenerationType;
-//import jakarta.persistence.Id;
-//import jakarta.persistence.Inheritance;
-//import jakarta.persistence.InheritanceType;
-//import jakarta.persistence.JoinTable;
-//import jakarta.persistence.ManyToMany;
-//import jakarta.persistence.OneToMany;
-//import jakarta.persistence.Table;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import java.util.List;
+import java.util.ArrayList;
 
-//@Entity
-//@DiscriminatorValue("SELLER")
-public class Seller extends Role {
+@Entity
+@DiscriminatorValue("SELLER")
+public class Seller extends Employee {
 
-//    @OneToMany(mappedBy = "seller")
-//    private List<Sale> sales;
+    @OneToMany(mappedBy = "seller")
+    private List<Sale> sales = new ArrayList<>(); // Employees managed by this manager
+
+    public void addSale(Sale sale) {
+        sales.add(sale);
+        sale.setSeller(this); // Assuming there's a method in Sale to set the seller
+    }
+
+    public void removeSale(Sale sale) {
+        sales.remove(sale);
+        sale.setSeller(null); // Assuming there's a method in Sale to set the seller
+    }
 }

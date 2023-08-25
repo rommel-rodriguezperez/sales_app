@@ -11,9 +11,9 @@ import com.mybank.exceptions.NotFoundException;
 @Service
 public class SellerService {
 
+	@Autowired
     private final SellerRepository sellerRepository;
 
-    @Autowired
     public SellerService(SellerRepository salesPersonRepository) {
         this.sellerRepository = salesPersonRepository;
     }

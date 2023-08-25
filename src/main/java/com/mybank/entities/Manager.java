@@ -1,26 +1,35 @@
 package com.mybank.entities;
 
-//import java.util.List;
-//
-//import jakarta.persistence.Column;
-//import jakarta.persistence.JoinColumn;
-//import jakarta.persistence.DiscriminatorValue;
-//import jakarta.persistence.Entity;
-//import jakarta.persistence.GeneratedValue;
-//import jakarta.persistence.GenerationType;
-//import jakarta.persistence.Id;
-//import jakarta.persistence.Inheritance;
-//import jakarta.persistence.InheritanceType;
-//import jakarta.persistence.JoinTable;
-//import jakarta.persistence.ManyToMany;
-//import jakarta.persistence.OneToMany;
-//import jakarta.persistence.Table;
-//
-//@Entity
-//@DiscriminatorValue("MANAGER")
-public class Manager extends Role {
-//
-//    @OneToMany(mappedBy = "manager")
-//    private List<Employee> employeesInCharge;
-//    // Manager-specific attributes and methods
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import java.util.List;
+import java.util.ArrayList;
+
+@Entity
+@DiscriminatorValue("MANAGER")
+public class Manager extends Employee {
+
+    @OneToMany(mappedBy = "manager")
+    private List<Employee> managedEmployees = new ArrayList<>(); // Employees managed by this manager
+
+    public int addManagedEmployee(Employee employee) {
+        if (this.getRole().getName().equals("MANAGER")) { // Check if this employee is a manager
+            managedEmployees.add(employee);
+            employee.setManager(this); // Set the manager for the added employee
+            return 0;
+        } else {
+        	return 1;
+        }
+    }
+
+    public int removeManagedEmployee(Employee employee) {
+        if (this.getRole().getName().equals("MANAGER") && managedEmployees.contains(employee)) {
+            managedEmployees.remove(employee);
+            employee.setManager(null); // Unset the manager for the removed employee
+            return 0;
+        } else {
+        	return 1;
+        }
+    }
 }

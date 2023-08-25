@@ -6,7 +6,7 @@ USE maindb;
 
 -- Create the Customers table
 CREATE TABLE IF NOT EXISTS Customers (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     document_type VARCHAR(255) NOT NULL,
     document_number VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE Persons (
 
 CREATE TABLE Roles (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255),
+    name VARCHAR(255)
 );
 
 CREATE TABLE Employees (
@@ -51,12 +51,19 @@ CREATE TABLE Employees (
     FOREIGN KEY (manager_id) REFERENCES Employees(id) -- Assuming manager is a role
 );
 
+
 CREATE TABLE Sales (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    seller_id BIGINT,
-    -- Additional columns for sale-specific attributes
-    FOREIGN KEY (seller_id) REFERENCES Roles(id) -- Assuming seller is a role
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    seller_id BIGINT NOT NULL,
+    customer_id BIGINT NOT NULL,
+    date DATE,
+    amount DOUBLE,
+    product_id BIGINT NOT NULL,
+    FOREIGN KEY (seller_id) REFERENCES Employees(id),
+    FOREIGN KEY (customer_id) REFERENCES Customers(id),
+    FOREIGN KEY (product_id) REFERENCES FinancialProducts(id)
 );
+
 
 -- Additional constraints and indexes as needed
 
@@ -100,3 +107,22 @@ INSERT INTO FinancialProducts (name, kind_id) VALUES ('Home Mortgage', 4);
 INSERT INTO FinancialProducts (name, kind_id) VALUES ('Personal Loan', 5);
 INSERT INTO FinancialProducts (name, kind_id) VALUES ('Premium Gold Card', 2);
 INSERT INTO FinancialProducts (name, kind_id) VALUES ('Premium Platinum Card', 3);
+
+
+INSERT INTO Persons (document_type, document_number, last_name, first_name, cell_phone_number) VALUES
+('DNI', '12345678', 'Smith', 'John', '123-456-7890'),
+('PASSPORT', 'P1234567', 'Doe', 'Jane', '234-567-8901'),
+('OTHER', 'O123456', 'Johnson', 'James', '345-678-9012'),
+('DNI', '87654321', 'Williams', 'Mary', '456-789-0123'),
+('PASSPORT', 'P7654321', 'Brown', 'Robert', '567-890-1234');
+
+INSERT INTO Roles (name) VALUES
+('MANAGER'),
+('SELLER');
+
+INSERT INTO Employees (id, role_id, manager_id) VALUES
+(1, 1, NULL), -- Manager without a manager
+(2, 2, 1),    -- Seller with manager 1
+(3, 2, 1),    -- Seller with manager 1
+(4, 1, 1),    -- Manager with manager 1
+(5, 2, 4);    -- Seller with manager 4
