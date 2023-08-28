@@ -2,15 +2,20 @@ package com.mybank.entities;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.ArrayList;
 
 @Entity
 @DiscriminatorValue("MANAGER")
 public class Manager extends Employee {
 
-    @OneToMany(mappedBy = "manager")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "manager", fetch = FetchType.EAGER)
     private List<Employee> managedEmployees = new ArrayList<>(); // Employees managed by this manager
 
     public int addManagedEmployee(Employee employee) {
@@ -31,5 +36,10 @@ public class Manager extends Employee {
         } else {
         	return 1;
         }
+    }
+
+    // TODO: Careful, might cause trouble
+    public List<Employee> getManagedEmployees() {
+    	return this.managedEmployees;
     }
 }
