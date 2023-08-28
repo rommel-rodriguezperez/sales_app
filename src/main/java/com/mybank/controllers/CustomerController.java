@@ -12,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 
 
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/api/customcustomers")
 @CrossOrigin(origins = "http://localhost:8080")
 public class CustomerController {
 
