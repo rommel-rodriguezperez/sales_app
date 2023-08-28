@@ -22,11 +22,8 @@ public class CustomerService {
     }
 
     public Customer getCustomerById(Long id) {
-//        return customerRepository.findById(id)
-//                .orElseThrow(() -> new NotFoundException("Customer not found with id: " + id));
         return customerRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Customer not found with id: " + id));
     }
 
-    // Other service methods
 }
