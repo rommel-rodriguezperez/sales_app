@@ -80,6 +80,23 @@ CREATE TABLE MonthlyGoals (
     FOREIGN KEY (employee_id) REFERENCES Employees(id)
 );
 
+CREATE TABLE ApplicationRoles (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    description VARCHAR(255)
+);
+
+CREATE TABLE ApplicationUsers (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    employee_id BIGINT NULL,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role_id BIGINT,
+    active BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (employee_id) REFERENCES Employees(id),
+    FOREIGN KEY (role_id) REFERENCES ApplicationRoles(id)
+);
+
 
 -- DATA LOADING 
 
@@ -366,3 +383,14 @@ VALUES
 (10, 8, 2023, 2000.00),
 (10, 9, 2023, 2500.00),
 (10, 10, 2023, 3000.00);
+
+INSERT INTO ApplicationRoles (name, description)
+VALUES 
+('ROLE_ADMIN', 'Has access to all functionalities and settings, including administrative panels where they can manage other users and configure settings.'),
+('ROLE_MANAGER', 'Can manage user accounts and access certain administrative sections, but has limited access to sensitive settings or data.'),
+('ROLE_USER', 'Can access general user functionalities and personal account settings, but does not have administrative privileges.'),
+('ROLE_GUEST', 'Has limited access, usually can only view public content.'),
+('ROLE_EDITOR', 'Can create and edit content, but has limited administrative privileges.'),
+('ROLE_MODERATOR', 'Has some administrative privileges such as moderating user content but does not have full administrative access.'),
+('ROLE_VIEWER', 'Has read-only access to certain parts of the application.'),
+('ROLE_API', 'Used for API users who need to access the application’s API but may not have access to the user interface.');
