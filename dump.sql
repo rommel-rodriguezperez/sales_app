@@ -221,7 +221,7 @@ VALUES
 -- Inserting Sales
 INSERT INTO Sales (seller_id, customer_id, date)
 VALUES
-(2, 1, '2023-08-01'),  -- Maria sold to Fernando
+(3, 1, '2023-08-01'),  
 (3, 2, '2023-08-02'),  -- Carlos sold to Carmen
 (4, 3, '2023-08-03'),  -- Ana sold to Ricardo
 (5, 4, '2023-08-04'),  -- Pedro sold to Laura
@@ -230,7 +230,7 @@ VALUES
 (8, 7, '2023-08-07'),  -- Elena sold to Alberto
 (9, 8, '2023-08-08'),  -- Diego sold to Sandra
 (10, 9, '2023-08-09'), -- Isabel sold to Victor
-(2, 10, '2023-08-10'), -- Maria sold to Monica
+(4, 10, '2023-08-10'), -- Maria sold to Monica
 (3, 11, '2023-08-11'), -- Carlos sold to Adrian
 (4, 12, '2023-08-12'), -- Ana sold to Daniela
 (5, 1, '2023-08-13'),  -- Pedro sold to Fernando
@@ -239,7 +239,7 @@ VALUES
 (8, 4, '2023-08-16'),  -- Elena sold to Laura
 (9, 5, '2023-08-17'),  -- Diego sold to Sergio
 (10, 6, '2023-08-18'), -- Isabel sold to Claudia
-(2, 7, '2023-08-19'),  -- Maria sold to Alberto
+(4, 7, '2023-08-19'),  
 (3, 8, '2023-08-20');  -- Carlos sold to Sandra
 
 -- -- Inserting SalesDetails
