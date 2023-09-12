@@ -27,20 +27,20 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 	
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
-    private Person person;	
+    protected Person person;	
 	
     @ManyToOne
     @JoinColumn(name = "role_id")
-    private Role role;
+    protected Role role;
     
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "manager_id")
-    private Manager manager;
+    protected Manager manager;
     
     
 
