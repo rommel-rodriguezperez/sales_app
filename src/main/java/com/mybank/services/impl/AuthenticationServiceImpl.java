@@ -58,16 +58,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		// TODO: Maybe I have to get the role repository to get the an
 		// actual Application Role from the database.
 		ApplicationRole role = applicationRoleRepository.findByName("ROLE_USER");
-
-		Optional<Employee> optionalEmployee =
-				employeeRepository.findById(request.getEmployeeId());
-
         var user = new ApplicationUser();
+		Optional<Employee> optionalEmployee = Optional.empty();
+
+
+		if (request.getEmployeeId() != null)
+			optionalEmployee =
+					employeeRepository.findById(request.getEmployeeId());
+
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         // TODO: Maybe this ApplicationRole and Employee Object are not serializable?
         user.setEmployee(optionalEmployee.orElse(null));
         user.setRole(role);
+        user.setActive(true);
 
         userRepository.save(user);
         var jwt = jwtService.generateToken(user);

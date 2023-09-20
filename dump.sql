@@ -394,3 +394,8 @@ VALUES
 ('ROLE_MODERATOR', 'Has some administrative privileges such as moderating user content but does not have full administrative access.'),
 ('ROLE_VIEWER', 'Has read-only access to certain parts of the application.'),
 ('ROLE_API', 'Used for API users who need to access the application’s API but may not have access to the user interface.');
+
+
+INSERT INTO ApplicationUsers(username, password, role_id, active)
+VALUES
+('testuser01', '$2a$10$D6I04MTGK78wjz0Eqf.QKOpbdE9dt08P.KnqBdou2jw5aUzhjmS4i', 3, TRUE);

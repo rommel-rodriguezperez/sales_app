@@ -119,8 +119,8 @@ public class SecurityConfig {
 		// TODO: Remember to modify this after setting and testing the 
 		// Application users, "/**" allows free access to all endpoints
         http.csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**")
-                .authorizeHttpRequests(request -> request.requestMatchers("/**")
+                .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**")
+//                .authorizeHttpRequests(request -> request.requestMatchers("/**")
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(

@@ -22,8 +22,15 @@ public class SignUpRequest {
     public SignUpRequest() {
 		super();
 	}
+   
     
-    
+	public SignUpRequest(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
+
 	public SignUpRequest(String username, String password, Long employeeId) {
 		super();
 		this.username = username;
