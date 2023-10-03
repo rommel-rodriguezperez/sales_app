@@ -1,23 +1,6 @@
 version: "3.3"
 
 services:
-  # app:
-  #   build: .
-  #   ports:
-  #     - "8080:8080"
-  #   depends_on:
-  #     - db
-  #     - login
-  #   environment:
-  #     - DB_HOST=db
-  #     - DB_NAME=maindb
-  #     - DB_USER=devuser
-  #     - DB_PASS=changeme
-  #     - DB_PORT=3306
-  #     - LOGIN_HOST=login
-  #     - LOGIN_PORT=8000
-  #   volumes:
-  #     - ./build/libs/:/usr/local/tomcat/webapps/
 
   db:
     image: mysql:8.0-debian
