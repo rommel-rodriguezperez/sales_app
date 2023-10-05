@@ -11,8 +11,9 @@ package com.mybank.dao.request;
 //@NoArgsConstructor
 //@AllArgsConstructor
 public class SignUpRequest {
-//    private String firstName;
-//    private String lastName;
+	/*
+	 * TODO: Consider adding the active and role_id fields here
+	 */
     private String username;
     private String password;
     private Long employeeId;
