@@ -34,8 +34,6 @@ import io.jsonwebtoken.Jwt;
 @RequestMapping("/api/v1/")
 //@RequiredArgsConstructor
 public class IdentityController {
-	@Autowired
-    private AuthenticationService authenticationService;
 
 	@Autowired
     private JwtService jwtService; 
@@ -52,16 +50,6 @@ public class IdentityController {
     @Autowired
     private ManagerService managerService;
 	
-    @PostMapping("/signup")
-    public ResponseEntity<JwtAuthenticationResponse> signup(@RequestBody SignUpRequest request) {
-        return ResponseEntity.ok(authenticationService.signup(request));
-    }
-
-    @PostMapping("/signin")
-    public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SigninRequest request) {
-        return ResponseEntity.ok(authenticationService.signin(request));
-    }
-    
 
 //    @GetMapping("/me")
 //    public ResponseEntity<ApplicationUser> getMyUserInfo(@AuthenticationPrincipal Jwt jwt) {
