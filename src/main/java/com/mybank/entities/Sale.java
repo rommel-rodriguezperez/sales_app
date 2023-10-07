@@ -28,7 +28,7 @@ public class Sale {
 
     private Date date;
     
-    @OneToMany(mappedBy = "sale")
+    @OneToMany()
     @JoinColumn(name = "sale_id")
     private List<SaleDetail> details = new ArrayList<>();
 
