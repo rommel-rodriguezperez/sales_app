@@ -48,6 +48,14 @@ public class FinancialProduct {
 		this.name = name;
 	}
 
+	public FinancialProductKind getKind() {
+		return kind;
+	}
+
+	public void setKind(FinancialProductKind kind) {
+		this.kind = kind;
+	}
+
 //	public double getPointsPerAmount() {
 //		return pointsPerAmount;
 //	}

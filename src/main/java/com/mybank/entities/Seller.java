@@ -40,4 +40,21 @@ public class Seller extends Employee {
         monthlyGoals.remove(goal);
         goal.setSeller(null); // Assuming there's a method in MonthlyGoal to set the seller
     }
+
+	public List<Sale> getSales() {
+		return sales;
+	}
+
+	public void setSales(List<Sale> sales) {
+		this.sales = sales;
+	}
+
+	public List<MonthlyGoal> getMonthlyGoals() {
+		return monthlyGoals;
+	}
+
+	public void setMonthlyGoals(List<MonthlyGoal> monthlyGoals) {
+		this.monthlyGoals = monthlyGoals;
+	}
+
 }

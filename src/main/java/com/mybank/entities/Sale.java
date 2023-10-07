@@ -32,6 +32,21 @@ public class Sale {
     @JoinColumn(name = "sale_id")
     private List<SaleDetail> details = new ArrayList<>();
 
+    
+    public double calculateTotalPoints() {
+    	double totalSalePoints = 0;
+    	for (SaleDetail detail: details) {
+    		double amount = detail.getAmount();
+    		double pointsPerAmount =
+    				detail
+						.getProduct()
+						.getKind()
+						.getPointsPerAmount();
+//    		totalPoints = totalPoints + pointsPerAmount * amount;
+    		totalSalePoints += pointsPerAmount * amount;
+    	}
+    	return totalSalePoints;
+    }
 
     public int addSaleDetail(SaleDetail detail) {
 		details.add(detail);
