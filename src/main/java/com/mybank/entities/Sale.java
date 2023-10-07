@@ -28,21 +28,18 @@ public class Sale {
 
     private Date date;
     
-//    @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER)
-    @JsonManagedReference
     @OneToMany(mappedBy = "sale")
+    @JoinColumn(name = "sale_id")
     private List<SaleDetail> details = new ArrayList<>();
 
 
     public int addSaleDetail(SaleDetail detail) {
 		details.add(detail);
-		detail.setSale(this);
 		return 0;
     }
 
     public int removeSaleDetail(SaleDetail detail) {
 		details.remove(detail);
-		detail.setSale(null);
 		return 0;
     }
 
@@ -76,6 +73,14 @@ public class Sale {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public List<SaleDetail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(List<SaleDetail> details) {
+		this.details = details;
 	}
 
 }

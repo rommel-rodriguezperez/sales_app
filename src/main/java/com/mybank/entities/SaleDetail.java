@@ -20,10 +20,8 @@ public class SaleDetail {
     @Column(name = "id")
     private Long id;
 
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn( name = "sale_id")
-	private Sale sale;
+    @Column( name = "sale_id")
+	private Long saleId;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
@@ -40,14 +38,6 @@ public class SaleDetail {
 		this.id = id;
 	}
 
-	public Sale getSale() {
-		return sale;
-	}
-
-	public void setSale(Sale sale) {
-		this.sale = sale;
-	}
-
 	public FinancialProduct getProduct() {
 		return product;
 	}
@@ -62,6 +52,14 @@ public class SaleDetail {
 
 	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+
+	public Long getSaleId() {
+		return saleId;
+	}
+
+	public void setSaleId(Long saleId) {
+		this.saleId = saleId;
 	}
 
 }
