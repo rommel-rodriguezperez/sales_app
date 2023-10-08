@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.util.Objects;
+
 @Entity
 @Table(name="financial_product_kind")
 public class FinancialProductKind {
@@ -48,6 +50,18 @@ public class FinancialProductKind {
 	public void setPointsPerAmount(double pointsPerAmount) {
 		this.pointsPerAmount = pointsPerAmount;
 	}
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FinancialProductKind that = (FinancialProductKind) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
 }
 

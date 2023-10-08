@@ -2,6 +2,7 @@ package com.mybank.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +27,8 @@ public class Sale {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    private Date date;
+    @Column(name = "date")
+    private LocalDate date;
     
 //    @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER)
     @JsonManagedReference
@@ -70,12 +72,20 @@ public class Sale {
 		this.customer = customer;
 	}
 
-	public Date getDate() {
+
+    public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
+	public List<SaleDetail> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<SaleDetail> details) {
+        this.details = details;
+    }
 }
