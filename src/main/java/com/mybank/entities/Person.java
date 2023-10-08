@@ -82,4 +82,9 @@ public class Person {
 		this.cellPhoneNumber = cellPhoneNumber;
 	}
 
+	@Override
+	public String toString() {
+		return "Person [lastName=" + lastName + ", firstName=" + firstName + "]";
+	}
+
 }

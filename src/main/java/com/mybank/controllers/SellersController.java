@@ -118,6 +118,88 @@ public class SellersController {
   private double calculatePointsForSaleDetail(SaleDetail detail, FinancialProductKind kind) {
     return (double)(detail.getAmount() * kind.getPointsPerAmount());
   }
+  
+  @GetMapping("/sales-summary/{year}/{month}")
+  public ResponseEntity<List<SalesSummaryForYearAndMonthDTO>> getSalesSummaryForYearAndMonth(
+          @PathVariable int year,
+          @PathVariable int month) {
+
+      List<Seller> sellers = sellerRepository.findAll();
+
+      if (sellers.isEmpty()) {
+          return ResponseEntity.notFound().build();
+      }
+
+      List<SalesSummaryForYearAndMonthDTO> summaries = new ArrayList<>();
+
+      for (Seller seller : sellers) {
+          List<Sale> sales = saleRepository.findAllBySeller(seller);
+          List<Sale> filteredSales = sales.stream()
+                  .filter(sale -> sale.getDate().getYear() == year && sale.getDate().getMonthValue() == month)
+                  .collect(Collectors.toList());
+
+          SalesSummaryForYearAndMonthDTO summary = calculateSalesSummary(filteredSales, seller);
+          summaries.add(summary);
+      }
+
+      // Eliminar duplicados de productos y calcular sumatorias
+      summaries.forEach(summary -> {
+          Map<String, ProductSummary> productSummaryMap = new HashMap<>();
+          List<ProductSummary> uniqueProductSummaries = new ArrayList<>();
+          double totalPoints = 0.0;
+
+          for (ProductSummary productSummary : summary.getProductSummaries()) {
+              String productName = productSummary.getProductName();
+
+              if (productSummaryMap.containsKey(productName)) {
+                  // Producto ya existe, actualizar sumatorias
+                  ProductSummary existingSummary = productSummaryMap.get(productName);
+                  existingSummary.setTotalAmountSold(existingSummary.getTotalAmountSold() + productSummary.getTotalAmountSold());
+                  existingSummary.setTotalPointsByProduct(existingSummary.getTotalPointsByProduct() + productSummary.getTotalPointsByProduct());
+              } else {
+                  // Producto no existe, agregarlo al mapa
+                  productSummaryMap.put(productName, productSummary);
+                  uniqueProductSummaries.add(productSummary);
+              }
+
+              totalPoints += productSummary.getTotalPointsByProduct();
+          }
+
+          summary.setProductSummaries(uniqueProductSummaries);
+          summary.setTotalPoints(totalPoints);
+      });
+
+      return ResponseEntity.ok(summaries);
+  }
+
+  private SalesSummaryForYearAndMonthDTO calculateSalesSummary(List<Sale> sales, Seller seller) {
+      SalesSummaryForYearAndMonthDTO summary = new SalesSummaryForYearAndMonthDTO();
+      List<ProductSummary> productSummaries = new ArrayList<>();
+
+      for (Sale sale : sales) {
+          for (SaleDetail detail : sale.getDetails()) {
+              FinancialProduct product = detail.getProduct();
+              FinancialProductKind kind = productKindRepository.findById(product.getId())
+                      .orElseThrow(() -> new RuntimeException("Tipo de producto no encontrado"));
+
+              double points = calculatePointsForSaleDetail(detail, kind);
+              double amount = detail.getAmount();
+
+              ProductSummary productSummary = new ProductSummary();
+              productSummary.setProductName(product.getName());
+              productSummary.setPointsPerAmount(kind.getPointsPerAmount());
+              productSummary.setTotalAmountSold(amount);
+              productSummary.setTotalPointsByProduct(points);
+
+              productSummaries.add(productSummary);
+          }
+      }
+
+      summary.setSellerName(seller.getPerson().toString());
+      summary.setProductSummaries(productSummaries);
+
+      return summary;
+  }
 }
 
 
