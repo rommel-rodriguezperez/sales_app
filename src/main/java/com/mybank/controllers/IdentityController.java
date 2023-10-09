@@ -94,6 +94,18 @@ public class IdentityController {
 		}
 		
 		identityDto.setEmployeeId(employee.getId());
+
+    	identityDto.setDocumentType(employee.getPerson().getDocumentType().name());
+
+    	identityDto.setDocumentNumber(employee.getPerson().getDocumentNumber());
+
+    	identityDto.setLastName(employee.getPerson().getLastName());
+
+    	identityDto.setFirstName(employee.getPerson().getFirstName());
+
+    	identityDto.setCellPhoneNumber(employee.getPerson().getCellPhoneNumber());
+    	
+    
 		Manager manager = employee.getManager();
 
 		if ( manager == null) {
