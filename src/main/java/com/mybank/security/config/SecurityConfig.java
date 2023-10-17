@@ -130,9 +130,11 @@ public class SecurityConfig {
 //    			.cors(withDefaults())
     			.cors(Customizer.withDefaults())
 				.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**")
+                .authorizeHttpRequests(request -> request
+                		.requestMatchers("/api/v1/auth/**")
+                        .permitAll().anyRequest().authenticated()
+                        )
 //                .authorizeHttpRequests(request -> request.requestMatchers("/**")
-                        .permitAll().anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(
                         jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
