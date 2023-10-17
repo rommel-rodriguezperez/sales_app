@@ -8,9 +8,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.mybank.dao.request.SignUpRequest;
-import com.mybank.dao.request.SigninRequest;
-import com.mybank.dao.response.JwtAuthenticationResponse;
+import com.mybank.dto.JwtAuthenticationResponse;
+import com.mybank.dto.SignUpRequest;
+import com.mybank.dto.SigninRequest;
 import com.mybank.entities.Role;
 import com.mybank.entities.Employee;
 import com.mybank.entities.ApplicationRole;

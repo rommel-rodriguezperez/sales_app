@@ -1,4 +1,4 @@
-package com.mybank.dao.request;
+package com.mybank.dto;
 
 
 //import lombok.AllArgsConstructor;

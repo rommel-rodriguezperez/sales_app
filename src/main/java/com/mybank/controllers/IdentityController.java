@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mybank.dao.request.SignUpRequest;
-import com.mybank.dao.request.SigninRequest;
-import com.mybank.dao.response.JwtAuthenticationResponse;
 import com.mybank.dto.IdentityDto;
+import com.mybank.dto.JwtAuthenticationResponse;
+import com.mybank.dto.SignUpRequest;
+import com.mybank.dto.SigninRequest;
 import com.mybank.entities.ApplicationUser;
 import com.mybank.entities.Employee;
 import com.mybank.entities.Manager;

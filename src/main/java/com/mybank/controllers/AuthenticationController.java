@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mybank.dao.request.SignUpRequest;
-import com.mybank.dao.request.SigninRequest;
-import com.mybank.dao.response.JwtAuthenticationResponse;
+import com.mybank.dto.JwtAuthenticationResponse;
+import com.mybank.dto.SignUpRequest;
+import com.mybank.dto.SigninRequest;
 import com.mybank.services.AuthenticationService;
 
 @RestController

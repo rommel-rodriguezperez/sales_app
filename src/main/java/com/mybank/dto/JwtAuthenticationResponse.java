@@ -1,4 +1,4 @@
-package com.mybank.dao.response;
+package com.mybank.dto;
 
 public class JwtAuthenticationResponse {
     private String token;

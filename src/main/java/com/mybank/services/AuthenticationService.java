@@ -3,9 +3,9 @@ package com.mybank.services;
 
 import org.springframework.stereotype.Service;
 
-import com.mybank.dao.request.SignUpRequest;
-import com.mybank.dao.request.SigninRequest;
-import com.mybank.dao.response.JwtAuthenticationResponse;
+import com.mybank.dto.JwtAuthenticationResponse;
+import com.mybank.dto.SignUpRequest;
+import com.mybank.dto.SigninRequest;
 
 @Service
 public interface AuthenticationService {
