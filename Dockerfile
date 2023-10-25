@@ -1,5 +1,8 @@
-FROM openjdk:8-jdk-alpine
+FROM amazoncorretto:17
 MAINTAINER 0812058@utp.edu.pe 
-COPY target/docker-message-server-1.0.0.jar message-server-1.0.0.jar
-ENTRYPOINT ["java","-jar","/message-server-1.0.0.jar"]
+COPY target/springbootdemo-latest.jar /springbootdemo-latest.jar
+#COPY ./mvnw /
+## ENTRYPOINT ["java","-jar","/springbootdemo-latest.jar"]
+CMD ["java","-jar","/springbootdemo-latest.jar"]
+# CMD ["/mvnw","spring-boot:run"]
 
