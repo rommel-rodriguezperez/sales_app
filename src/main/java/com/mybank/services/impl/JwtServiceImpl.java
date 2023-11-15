@@ -45,7 +45,8 @@ public class JwtServiceImpl implements JwtService {
         return claimsResolvers.apply(claims);
     }
 
-    private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+	@Override
+	public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         return Jwts.builder()
         		.setClaims(extraClaims)
         		.setSubject(userDetails.getUsername())
@@ -74,5 +75,6 @@ public class JwtServiceImpl implements JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
 }
 
