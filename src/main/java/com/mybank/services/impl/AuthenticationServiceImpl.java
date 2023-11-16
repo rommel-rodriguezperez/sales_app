@@ -1,5 +1,7 @@
 package com.mybank.services.impl;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import com.mybank.dto.SignUpRequest;
 import com.mybank.dto.SigninRequest;
 import com.mybank.entities.Role;
 import com.mybank.entities.Employee;
+import com.mybank.entities.Manager;
 import com.mybank.entities.ApplicationRole;
 import com.mybank.entities.ApplicationUser;
 import com.mybank.repositories.ApplicationRoleRepository;
@@ -84,16 +87,58 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public JwtAuthenticationResponse signin(SigninRequest request) {
+		Map<String, Object> extraClaims = new HashMap<>();
+
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+                new UsernamePasswordAuthenticationToken(
+                		request.getUsername(),
+                		request.getPassword()
+                		)
+                );
+
         var user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
-        var jwt = jwtService.generateToken(user);
+        
+        
+        extraClaims = extractClaims(user);
+        
+//        var jwt = jwtService.generateToken(user);
+        var jwt = jwtService.generateToken(extraClaims, user);
 
 		JwtAuthenticationResponse authenticationResponse = new JwtAuthenticationResponse();
 		authenticationResponse.setToken(jwt);
 
         return authenticationResponse;
+    }
+    
+    private Map<String, Object> extractClaims(ApplicationUser user) {
+		Map<String, Object> extraClaims = new HashMap<>();
+		Employee employee = user.getEmployee();
+
+		extraClaims.put("employeeId", employee.getId());
+
+		extraClaims.put(
+				"documentType",
+				employee.getPerson().getDocumentType().name()
+				);
+
+		extraClaims.put(
+				"documentNumber", employee.getPerson().getDocumentNumber()
+				);
+
+		extraClaims.put("lastName", employee.getPerson().getLastName());
+		extraClaims.put("firstName", employee.getPerson().getFirstName());
+		extraClaims.put(
+				"cellphoneNumber", employee.getPerson().getCellPhoneNumber()
+				);
+
+		extraClaims.put("manager", false);
+
+		if ( employee.getManager() == null) {
+			extraClaims.put("manager", true);
+		}
+
+		return extraClaims;
     }
 }
 
