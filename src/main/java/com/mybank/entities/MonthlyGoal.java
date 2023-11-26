@@ -54,7 +54,7 @@ public class MonthlyGoal {
 	            totalSalesAmount += sale.calculateTotalPoints();
 	        }
 	    }
-	    progress = (int) Math.round((goalAmount/totalSalesAmount) * 100);
+	    progress = (int) Math.round((totalSalesAmount/goalAmount) * 100);
 		return progress;
 	}
 	
