@@ -399,3 +399,10 @@ VALUES
 INSERT INTO ApplicationUsers(username, password, role_id, active)
 VALUES
 ('testuser01', '$2a$10$D6I04MTGK78wjz0Eqf.QKOpbdE9dt08P.KnqBdou2jw5aUzhjmS4i', 3, TRUE);
+
+INSERT INTO ApplicationUsers(employee_id, username, password, role_id, active)
+VALUES
+('1', 'manager01', '$2a$10$6QBM/5ksmi/Msso35m435ur6fpmJV9Cbq5gtdvp08PJxfTowTUJsm', 1, TRUE),
+('2', 'manager02', '$2a$10$6QBM/5ksmi/Msso35m435ur6fpmJV9Cbq5gtdvp08PJxfTowTUJsm', 2, TRUE),
+('3', 'empl_user01', '$2a$10$6QBM/5ksmi/Msso35m435ur6fpmJV9Cbq5gtdvp08PJxfTowTUJsm', 3, TRUE);
+
